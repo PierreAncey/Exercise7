@@ -1,6 +1,18 @@
 %% Parametres %% (A MODIFIER SELON VOS BESOINS)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 lw = 2; fs = 16; Nx = 64;
+nom = '1_a)_fixed.gif';
+
+repertoire = ''; % Chemin d'acces au code compile
+executable = 'Exercice7'; % Nom de l'executable
+input = 'configuration.in'; % Nom du fichier d'entree
+
+%% Simulations et analyse %%
+%%%%%%%%%%%%%%%%%
+
+cmd = sprintf('%s %s %s %s%s %s','set', 'path=%path:C:\Program Files\MATLAB\R2020b\bin\win64;=%', '&', repertoire, executable, input);
+system(cmd);
+disp('Done.')
 
 data = load("output_mesh.out");
 x = data(1,:);
@@ -50,9 +62,9 @@ for i = 1:size(t)
   [imind,cm] = rgb2ind(im,256); 
 
   if i == 1 
-      imwrite(imind,cm,'2D_fixe.gif','gif', 'Loopcount',inf); 
+      imwrite(imind,cm,nom,'gif', 'Loopcount',inf); 
   else 
-      imwrite(imind,cm,'2D_fixe.gif','gif','WriteMode','append'); 
+      imwrite(imind,cm,nom,'gif','WriteMode','append'); 
   end 
 
 end
