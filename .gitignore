@@ -8,4 +8,4 @@ ConfigFile.h
 Makefile
 
 # Ignores certain folders 
-out/**
+/out/
