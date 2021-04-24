@@ -29,7 +29,7 @@ f = data(:,2:end);
 % size(f)
 h = figure;
 for i = 1:size(t)
-    % Finding values
+    % Calculs de valeur
     f = data(1+(i-1)*Nx:i*Nx,2:end);
     maxf = 0;
     for j = 1:Nx
@@ -41,7 +41,7 @@ for i = 1:size(t)
     end
     c = sprintf('t = %.6g s;  max(|f|) = %.6g', t(i), maxf);
     
-    % Drawing of one time step
+    % Dessin d'un pas de temps
     plot(x,f);
     ylim([-3 3])
     xlim([0 10])
@@ -52,7 +52,7 @@ for i = 1:size(t)
     drawnow
     
     
-    % Saves simulation as a .gif
+    % Sauvegarde la simulation en un .gif
     frame = getframe(h); 
     im = frame2im(frame); 
     [imind,cm] = rgb2ind(im,256); 
