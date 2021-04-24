@@ -518,6 +518,7 @@ int main(int argc, char* argv[]){
           else{
             bc_left = dirichlet;
           }
+          break;
         }
         for (unsigned int y(start_yiD+1); y < end_yiD; ++y){
           fnext[start_xiD][y] = perturbation(t, 0, y*dy, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
@@ -549,6 +550,7 @@ int main(int argc, char* argv[]){
           else{
             bc_right = dirichlet;
           }
+          break;
         }
         for (unsigned int y(start_yiD+1); y < end_yiD; ++y){
           fnext[end_xiD][y] = perturbation(t, L_x, y*dy, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
@@ -580,6 +582,7 @@ int main(int argc, char* argv[]){
           else{
             bc_lower = dirichlet;
           }
+          break;
         }
         for (unsigned int x(start_xiD); x <= end_xiD; ++x){
           fnext[x][start_yiD] = perturbation(t, x*dx, 0, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
@@ -611,6 +614,7 @@ int main(int argc, char* argv[]){
           else{
             bc_upper = dirichlet;
           }
+          break;
         }
         for (unsigned int x(start_xiD); x <= end_xiD; ++x){
           fnext[x][end_yiD] = perturbation(t, x*dx, L_y, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
