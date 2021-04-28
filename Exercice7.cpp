@@ -418,7 +418,6 @@ int main(int argc, char* argv[]){
   // Lire les données pour initialiser les tableaux
   string type_init(configFile.get<string>("type_init").c_str());
   double F0(configFile.get<double>("F0"));
-  double u2_loc(0);
 
   // TODO: Calcul du vecteur d'onde selon le mode propre en x et y: k_x=m*pi/L_x; k_y=n*pi/L_y;
   double k_wave_x(mode_num_x*M_PI/L_x);
@@ -453,7 +452,7 @@ int main(int argc, char* argv[]){
 
   // ----------------------------------------------------------------------------------------------------------------------
   // Boucle temporelle :
-  double t, amplitude_bnd;
+  double t;
   unsigned int stride(0);
   unsigned int n_stride(configFile.get<unsigned int>("n_stride"));
   // Put has first line the position vector

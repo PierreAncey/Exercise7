@@ -8,12 +8,13 @@ repertoire = ''; % Chemin d'accès au code compilé
 executable = 'Exercice7'; % Nom de l'exécutable
 input = 'configuration.in'; % Nom du fichier d'entrée
 
-nsimul = 5;
+nsimul = 10;
 
-nper = round(logspace(2,3,nsimul+1)); % Nombre d'itérations entier de 10^2 à 10^4  
+nper = round(logspace(2,3,nsimul+1)) % Nombre d'itérations entier de 10^2 à 10^4  
 nper(1) = []; 
-CFL = (2./nper);
+CFL = (63./nper);
 dt = tfin./nper
+
 
 paramstr = 'CFL'; % Nom du paramètre à scanner  
 param = CFL; % Valeurs du paramètre à scanner 
@@ -65,6 +66,15 @@ figure
 loglog(CFL,error,'k+')
 set(gca,'fontsize',fs)
 xlabel('$\beta_{CFL}$', 'interpreter', 'latex','fontsize', fs)
+ylabel('Error')
+s = sprintf('y = (%.2f)x  + (%.2f)', p(1) ,p(2));
+text(9, 1.5, s, 'Color','red', 'FontSize', 16)
+grid on
+
+figure
+loglog(dt,error,'k+')
+set(gca,'fontsize',fs)
+xlabel('$\Delta t$', 'interpreter', 'latex','fontsize', fs)
 ylabel('Error')
 s = sprintf('y = (%.2f)x  + (%.2f)', p(1) ,p(2));
 text(9, 1.5, s, 'Color','red', 'FontSize', 16)
