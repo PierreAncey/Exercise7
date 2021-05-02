@@ -31,15 +31,16 @@ h = figure;
 for i = 1:size(t)
     %Dessin de la fonction
     f = data(1+(i-1)*Nx:i*Nx,2:end);
-    surf(y,x,f);
-    ylim([0 10])
-    xlim([0 6])
+    surf(x,y,f);
+    xlim([0 10])
+    ylim([0 6])
     zlim([-3 3])
-    xlabel('Y', 'fontsize', fs)
-    ylabel('X', 'fontsize', fs)
+    xlabel('X', 'fontsize', fs)
+    ylabel('Y', 'fontsize', fs)
     zlabel('Z', 'fontsize', fs)
 
      drawnow
+%      pause(10);
 
   frame = getframe(h); 
   im = frame2im(frame); 

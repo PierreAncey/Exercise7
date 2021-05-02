@@ -8,13 +8,11 @@ repertoire = ''; % Chemin d'accès au code compilé
 executable = 'Exercice7'; % Nom de l'exécutable
 input = 'configuration.in'; % Nom du fichier d'entrée
 
-nsimul = 10;
+nsimul = 3;
 
-nper = round(logspace(2,3,nsimul+1)) % Nombre d'itérations entier de 10^2 à 10^4  
-nper(1) = []; 
+nper = round(logspace(2,3,nsimul)); % Nombre d'itérations entier de 10^2 à 10^4  
 CFL = (63./nper);
-dt = tfin./nper
-
+dt = tfin./nper;
 
 paramstr = 'CFL'; % Nom du paramètre à scanner  
 param = CFL; % Valeurs du paramètre à scanner 
@@ -40,7 +38,7 @@ y = data(2,:);
 fana = zeros(nx,ny);
 for j = 1:nx
     for l = 1:ny
-        fana(j,l) = cos(pi*((x(j)/5) + (y(l)/3) - 2));
+        fana(j,l) = cos(pi*((x(j)/5) + (y(l)/3)));
     end
 end
 

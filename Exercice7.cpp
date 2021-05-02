@@ -81,12 +81,12 @@ unsigned int const& start_xiD,unsigned int const& start_yiD,\
 unsigned int const& end_xiD,unsigned int const& end_yiD){
   unsigned int i,j;
   
-  for(i=start_yiD; i<end_yiD+1; ++i){
+  for(i = start_xiD; i < end_xiD + 1; ++i){
       o << t << " ";
-      for(j=start_xiD; j<end_xiD; ++j){
+      for(j = start_yiD; j < end_yiD; ++j){
         o << v[i][j] << " "; 
       }
-      o << v[i][end_xiD] << endl;
+      o << v[i][end_yiD] << endl;
   }
 }
 
@@ -366,12 +366,12 @@ int main(int argc, char* argv[]){
 
   double dx(L_x/(Nx_real-1));
   double dy(L_y/(Ny_real-1));
-  double dt(sqrt(pow(CFL,2)/(u2->max()*((1/pow(dx,2)) + (pow(dy,2))))));
+  double dt(sqrt(pow(CFL,2)/(u2->max()*((1/pow(dx,2)) + (1/pow(dy,2))))));
   
   // ----------------------------------------------------------------------------------------------------------------------
   // Conditions aux bords (les strings sont converties en valeurs numériques à l'aide d'un énumérateur) :
   bound_cond bc_left, bc_right, bc_upper, bc_lower;
-  unsigned int Nx=Nx_real,Ny=Ny_real,start_xiD=0,end_xiD=Nx_real-1,start_yiD=0,end_yiD=Ny_real-1; 
+  unsigned int Nx=Nx_real, Ny=Ny_real, start_xiD=0, end_xiD=Nx_real-1, start_yiD=0, end_yiD=Ny_real-1; 
 
   bc_left = read_boundary_condition(configFile.get<string>("bc_left").c_str());
   bc_right = read_boundary_condition(configFile.get<string>("bc_right").c_str());
@@ -406,11 +406,14 @@ int main(int argc, char* argv[]){
 
   ofstream fichier_u(configFile.get<string>("output_velocity").c_str());
   fichier_u.precision(15);
-  for(double y(u2->get_lower_extremum()); y<=u2->get_upper_extremum()+.5*dy; y+=dy){
-    for(double x(u2->get_left_extremum()); x<=u2->get_right_extremum()-.5*dx; x+=dx){
+  double memoire(0.);
+  for(double x(u2->get_left_extremum()); x <= u2->get_right_extremum() + .5*dx; x += dx){
+    for(double y(u2->get_lower_extremum()); y <= u2->get_upper_extremum() - .5*dy; y += dy){
+      memoire = y;
       fichier_u << sqrt((*u2)(x,y)) << " ";
     }
-    fichier_u << sqrt((*u2)(u2->get_right_extremum(),y)) << endl;
+    fichier_u << sqrt((*u2)(u2->get_right_extremum(), memoire + dy)) << endl;
+    memoire = 0;
   }
   fichier_u.close();
 
@@ -422,6 +425,20 @@ int main(int argc, char* argv[]){
   // TODO: Calcul du vecteur d'onde selon le mode propre en x et y: k_x=m*pi/L_x; k_y=n*pi/L_y;
   double k_wave_x(mode_num_x*M_PI/L_x);
   double k_wave_y(mode_num_y*M_PI/L_y);
+
+  // Put has first line the position vector
+  vector<double> x_mesh(Nx_real),y_mesh(Ny_real);
+  for(i = start_xiD; i < end_xiD + 1; ++i){
+    x_mesh[i] = u2->get_left_extremum() + (i-start_xiD)*dx; 
+  }
+  for(i = start_yiD; i < end_yiD + 1; ++i){
+    y_mesh[i] = u2->get_lower_extremum() + (i-start_yiD)*dy;
+  }
+  if(write_mesh){
+    fichier_mesh << x_mesh << endl;
+    fichier_mesh << y_mesh << endl;
+    fichier_mesh.close();
+  }
   
   // Initialisation des tableaux du schéma numérique :
   vector<vector<double>> fpast(Ny,vector<double>(Nx)), fnow(Ny,vector<double>(Nx)),\
@@ -431,10 +448,10 @@ int main(int argc, char* argv[]){
     // On initialise alors un mode propre (m,n); 
     // TODO: completer fnow, fpast, beta_x^2, beta_y^2
     // Note : La syntaxe pour evaluer u^2 au point x est (*u2)(x,y)
-    for(unsigned int i(start_xiD); i<=end_xiD; ++i){
-      for(unsigned int j(start_yiD); j<=end_yiD; ++j){
-        fpast[i][j] = F0*cos(i*dx*k_wave_x + j*dy*k_wave_y);
-        fnow[i][j] = F0*cos(i*dx*k_wave_x + j*dy*k_wave_y);
+    for(unsigned int i(start_xiD); i <= end_xiD; ++i){
+      for(unsigned int j(start_yiD); j <= end_yiD; ++j){
+        fpast[i][j] = F0*cos(x_mesh[i]*k_wave_x + y_mesh[j]*k_wave_y);
+        fnow[i][j] = F0*cos(x_mesh[i]*k_wave_x + y_mesh[j]*k_wave_y);
       }     
     }
   } 
@@ -455,19 +472,6 @@ int main(int argc, char* argv[]){
   double t;
   unsigned int stride(0);
   unsigned int n_stride(configFile.get<unsigned int>("n_stride"));
-  // Put has first line the position vector
-  vector<double> x_mesh(Nx_real),y_mesh(Ny_real);
-  for(i=start_xiD; i<end_xiD+1; ++i){
-    x_mesh[i] = u2->get_left_extremum()+(i-start_xiD)*dx; 
-  }
-  for(i=start_yiD; i<end_yiD+1; ++i){
-    y_mesh[i] = u2->get_lower_extremum()+(i-start_yiD)*dy;
-  }
-  if(write_mesh){
-    fichier_mesh << x_mesh << endl;
-    fichier_mesh << y_mesh << endl;
-    fichier_mesh.close();
-  }
 
   for(t=0.; t<tfin; t+=dt){
     // Écriture :
