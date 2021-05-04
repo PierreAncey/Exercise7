@@ -450,8 +450,8 @@ int main(int argc, char* argv[]){
     // Note : La syntaxe pour evaluer u^2 au point x est (*u2)(x,y)
     for(unsigned int i(start_xiD); i <= end_xiD; ++i){
       for(unsigned int j(start_yiD); j <= end_yiD; ++j){
-        fpast[i][j] = F0*cos(x_mesh[i]*k_wave_x + y_mesh[j]*k_wave_y);
-        fnow[i][j] = F0*cos(x_mesh[i]*k_wave_x + y_mesh[j]*k_wave_y);
+        fpast[i][j] = F0*(cos(x_mesh[i]*k_wave_x - y_mesh[j]*k_wave_y) - cos(x_mesh[i]*k_wave_x + y_mesh[j]*k_wave_y));
+        fnow[i][j] = F0*(cos(x_mesh[i]*k_wave_x - y_mesh[j]*k_wave_y) - cos(x_mesh[i]*k_wave_x + y_mesh[j]*k_wave_y));
       }     
     }
   } 
