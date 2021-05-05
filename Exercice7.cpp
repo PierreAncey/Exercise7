@@ -53,7 +53,7 @@ double const& xL, double const& xR,double const& yL, double const& yU, \
 double const& pert_velocity, double const& pert_amplitude, \
 int const& mode_num_x,int const& mode_num_y, bool const& f_tilde){
   if (f_tilde){
-    return pert_amplitude*cos(M_PI*((mode_num_x*x/(xR - xL))) + (mode_num_y*y/(yU - yL)));
+    return pert_amplitude*(cos((mode_num_x*M_PI*x/(xR - xL)) - (mode_num_y*M_PI*y/(yU - yL))) - cos((mode_num_x*M_PI*x/(xR - xL)) + (mode_num_y*M_PI*y/(yU - yL))));
   }
   else{
     return pert_amplitude*sin(pert_velocity*t);
