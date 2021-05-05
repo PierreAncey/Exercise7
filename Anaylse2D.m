@@ -1,7 +1,7 @@
 %% Parametres %% (A MODIFIER SELON VOS BESOINS)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 lw = 2; fs = 16; Nx = 64;
-nom = '1_a)_fixed_2D.gif';
+nom = 'yolo2.gif';
 
 repertoire = ''; % Chemin d'acces au code compile
 executable = 'Exercice7'; % Nom de l'executable
