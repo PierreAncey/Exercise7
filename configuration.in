@@ -1,7 +1,7 @@
 % Paramètres physique généraux:
 tfin = 10.e0	% Temps physique de la simulation (s)
 xL = 0.e0    		% Limite gauche du fond marin (m) const: 0.
-xR = 10.e0   		% Limite droite du fond marin (m) const: 15.
+xR = 6.e0   		% Limite droite du fond marin (m) const: 15.
 yL = 0.e0   		% Limite inférieure du fond marin (m) const: 0.
 yU = 6.e0     		% Limite supérieure du fond marin (m) const: 15.
 pert_amplitude = 0.e0	% Amplitude de la perturbation du terme de droite (m)
@@ -21,14 +21,14 @@ Ly = 2.e3    % Longueur caractéristique de l'onde en y (m)
 % Paramètres numériques :
 Nx = 64			 	 % Nombre de nodes du maillage en x (extrêmes inclus)
 Ny = 64 			 % Nombre de nodes du maillage en y (extrêmes inclus)
-CFL = 1.1e0  			 % Valeur de la condition CFL
+CFL = 2.e0  			 % Valeur de la condition CFL
 
 type_u2 = const		 	 % Type de simulation: "const", "onde_cas1" et "onde_cas2" 
 mode_num_x = 2			 % Valeur propre en x
 mode_num_y = 2			 % Valeur propre en y
 
 bc_left = harmonic		 % Condition au bord gauche: dirichlet, neumann, harmonic
-bc_right  = dirichlet		 % Condition au bord droite: dirichlet, neumann, harmonic
+bc_right  = neumann		 % Condition au bord droite: dirichlet, neumann, harmonic
 bc_lower  = neumann		 % Condition au bord inférieur: dirichlet, neumann, harmonic
 bc_upper  = neumann		 % Condition au bord supérieur: dirichlet, neumann, harmonic
 impulsion = true		 % Si vrai, et si harmonique, une seule onde est émise

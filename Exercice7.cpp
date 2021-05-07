@@ -441,8 +441,8 @@ int main(int argc, char* argv[]){
   }
   
   // Initialisation des tableaux du schéma numérique :
-  vector<vector<double>> fpast(Ny,vector<double>(Nx)), fnow(Ny,vector<double>(Nx)),\
-  fnext(Ny,vector<double>(Nx)), betax2(Ny,vector<double>(Nx)),betay2(Ny,vector<double>(Nx)); 
+  vector<vector<double>> fpast(Nx,vector<double>(Ny)), fnow(Nx,vector<double>(Ny)),\
+  fnext(Nx,vector<double>(Ny)), betax2(Nx,vector<double>(Ny)),betay2(Nx,vector<double>(Ny)); 
 
   if(type_init=="harmonic"){
     // On initialise alors un mode propre (m,n); 
@@ -524,7 +524,7 @@ int main(int argc, char* argv[]){
           break;
         }
         for (unsigned int y(start_yiD+1); y < end_yiD; ++y){
-          fnext[start_xiD][y] = perturbation(t, 0, y*dy, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
+          fnext[start_xiD][y] = perturbation(t, xL, y*dy, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
         }
         break;
       default:
@@ -556,7 +556,7 @@ int main(int argc, char* argv[]){
           break;
         }
         for (unsigned int y(start_yiD+1); y < end_yiD; ++y){
-          fnext[end_xiD][y] = perturbation(t, L_x, y*dy, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
+          fnext[end_xiD][y] = perturbation(t, xR, y*dy, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
         }
         break;
       default:
@@ -588,7 +588,7 @@ int main(int argc, char* argv[]){
           break;
         }
         for (unsigned int x(start_xiD); x <= end_xiD; ++x){
-          fnext[x][start_yiD] = perturbation(t, x*dx, 0, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
+          fnext[x][start_yiD] = perturbation(t, x*dx, yL, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
         }
         break;
       default:
@@ -620,7 +620,7 @@ int main(int argc, char* argv[]){
           break;
         }
         for (unsigned int x(start_xiD); x <= end_xiD; ++x){
-          fnext[x][end_yiD] = perturbation(t, x*dx, L_y, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
+          fnext[x][end_yiD] = perturbation(t, x*dx, yU, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
         }
         break;
       default:
