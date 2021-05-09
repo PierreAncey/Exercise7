@@ -34,7 +34,7 @@ for i = 1:size(t)
     surf(x,y,f);
     xlim([0 10])
     ylim([0 6])
-    zlim([-3 3])
+    zlim([-200 200])
     xlabel('X', 'fontsize', fs)
     ylabel('Y', 'fontsize', fs)
     zlabel('Z', 'fontsize', fs)

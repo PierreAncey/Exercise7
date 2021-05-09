@@ -53,7 +53,7 @@ double const& xL, double const& xR,double const& yL, double const& yU, \
 double const& pert_velocity, double const& pert_amplitude, \
 int const& mode_num_x,int const& mode_num_y, bool const& f_tilde){
   if (f_tilde){
-    return pert_amplitude*(cos((mode_num_x*M_PI*x/(xR - xL)) - (mode_num_y*M_PI*y/(yU - yL))) - cos((mode_num_x*M_PI*x/(xR - xL)) + (mode_num_y*M_PI*y/(yU - yL))));
+    return pert_amplitude*(cos((mode_num_x*M_PI*x/(xR - xL)) - (mode_num_y*M_PI*y/(yU - yL))) - cos((mode_num_x*M_PI*x/(xR - xL)) + (mode_num_y*M_PI*y/(yU - yL))))*sin(pert_velocity*t);
   }
   else{
     return pert_amplitude*sin(pert_velocity*t);
@@ -344,7 +344,6 @@ int main(int argc, char* argv[]){
   double pert_velocity  = configFile.get<double>("pert_velocity");
   int mode_num_x   = configFile.get<int>("mode_num_x");
   int mode_num_y	 = configFile.get<int>("mode_num_y");
-  bool pertu_f_tilde	 = configFile.get<bool>("pertu_f_tilde");
 
   // Génération de la fonction u2(x,y)
   U2* u2;
@@ -441,9 +440,8 @@ int main(int argc, char* argv[]){
   }
   
   // Initialisation des tableaux du schéma numérique :
-  vector<vector<double>> fpast(Nx,vector<double>(Ny)), fnow(Nx,vector<double>(Ny)),\
-  fnext(Nx,vector<double>(Ny)), betax2(Nx,vector<double>(Ny)),betay2(Nx,vector<double>(Ny)); 
-
+  vector<vector<double>> fpast(Nx,vector<double>(Ny)), fnow(Nx,vector<double>(Ny)), fnext(Nx,vector<double>(Ny)), a(Nx,vector<double>(Ny)); 
+  
   if(type_init=="harmonic"){
     // On initialise alors un mode propre (m,n); 
     // TODO: completer fnow, fpast, beta_x^2, beta_y^2
@@ -490,6 +488,7 @@ int main(int argc, char* argv[]){
                     + (((*u2)(x_mesh[i],y_mesh[j+1]) - (*u2)(x_mesh[i],y_mesh[j-1]))*(fnow[i][j+1] - fnow[i][j-1])/(4*pow(dy, 2))) \
                     + (*u2)(x_mesh[i],y_mesh[j])*((fnow[i+1][j] - 2*fnow[i][j] + fnow[i-1][j])/pow(dx, 2))\
                     + (*u2)(x_mesh[i],y_mesh[j])*((fnow[i][j+1] - 2*fnow[i][j] + fnow[i][j-1])/pow(dy, 2)))\
+                    + perturbation(t, x_mesh[i], y_mesh[j], u2->get_left_extremum(), u2->get_right_extremum(), u2->get_lower_extremum(), u2->get_upper_extremum(), pert_velocity, pert_amplitude, mode_num_x, mode_num_y, true) \
                     + 2*fnow[i][j] - fpast[i][j]; // À modifier!
       } 
     }
@@ -524,7 +523,7 @@ int main(int argc, char* argv[]){
           break;
         }
         for (unsigned int y(start_yiD+1); y < end_yiD; ++y){
-          fnext[start_xiD][y] = perturbation(t, xL, y*dy, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
+          fnext[start_xiD][y] = perturbation(t, xL, y*dy, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, false);
         }
         break;
       default:
@@ -556,7 +555,7 @@ int main(int argc, char* argv[]){
           break;
         }
         for (unsigned int y(start_yiD+1); y < end_yiD; ++y){
-          fnext[end_xiD][y] = perturbation(t, xR, y*dy, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
+          fnext[end_xiD][y] = perturbation(t, xR, y*dy, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, false);
         }
         break;
       default:
@@ -588,7 +587,7 @@ int main(int argc, char* argv[]){
           break;
         }
         for (unsigned int x(start_xiD); x <= end_xiD; ++x){
-          fnext[x][start_yiD] = perturbation(t, x*dx, yL, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
+          fnext[x][start_yiD] = perturbation(t, x*dx, yL, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, false);
         }
         break;
       default:
@@ -620,7 +619,7 @@ int main(int argc, char* argv[]){
           break;
         }
         for (unsigned int x(start_xiD); x <= end_xiD; ++x){
-          fnext[x][end_yiD] = perturbation(t, x*dx, yU, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, pertu_f_tilde);
+          fnext[x][end_yiD] = perturbation(t, x*dx, yU, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, false);
         }
         break;
       default:
