@@ -1,5 +1,5 @@
 # Exercise 7
-This repository is used to stock the codes (MATLAB and C++) as well as the simulation results (.gif, .jpg and .eps).
+This repository is used to stock the codes (MATLAB and C++) as well as the simulation results (.gif and .jpg).
 
 ## Nomenclature
 In the ./gifs/ folder, the coefficient CFL's value is 1.00 by default, except if a file contains "1.94", which is the CFL coefficient's value then.
