@@ -7,4 +7,4 @@ If it has "fixe" in the name, it is the Dirichlet's conditions and "libre" is fo
 
 Moreover, if a file contains "2D", it means that the wave is projected on a 2D space. Furthermore the term "fixed" designates the 1D CFL condition:
 
-![](images/CFL1D.png)
+![](pictures/CFL1D.png)
