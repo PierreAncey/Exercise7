@@ -21,7 +21,7 @@ Ly = 2.e3    % Longueur caractéristique de l'onde en y (m)
 % Paramètres numériques :
 Nx = 64			 	 % Nombre de nodes du maillage en x (extrêmes inclus)
 Ny = 64 			 % Nombre de nodes du maillage en y (extrêmes inclus)
-CFL = 1.e0  			 % Valeur de la condition CFL
+CFL = 1.1e0  			 % Valeur de la condition CFL
 
 type_u2 = const		 	 % Type de simulation: "const", "onde_cas1" et "onde_cas2" 
 mode_num_x = 2			 % Valeur propre en x
