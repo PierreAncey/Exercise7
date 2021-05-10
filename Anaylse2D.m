@@ -1,7 +1,7 @@
 %% Parametres %% (A MODIFIER SELON VOS BESOINS)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 lw = 2; fs = 16; Nx = 64;
-nom = '2a)_free_fixed_2D.gif';
+nom = '2a)_free_2D.gif';
 
 repertoire = ''; % Chemin d'acces au code compile
 executable = 'Exercice7'; % Nom de l'executable

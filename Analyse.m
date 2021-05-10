@@ -1,7 +1,7 @@
 %% Parametres %% (A MODIFIER SELON VOS BESOINS)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 lw = 2; fs = 16; Nx = 64;
-nom = '2a)_fixe_fixed.gif';
+nom = '2c).gif';
 
 repertoire = ''; % Chemin d'acces au code compile
 executable = 'Exercice7'; % Nom de l'executable
@@ -31,7 +31,7 @@ h = figure;
 for i = 1:size(t)
     %Dessin de la fonction
     f = data(1+(i-1)*Nx:i*Nx,2:end);
-    surf(x,y,f);
+    surf(x,y,f.');
     xlim([0 10])
     ylim([0 6])
     zlim([-3 3])

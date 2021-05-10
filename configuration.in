@@ -1,5 +1,5 @@
 % Paramètres physique généraux:
-tfin = 10.e0	% Temps physique de la simulation (s)
+tfin = 1.286239e0	% Temps physique de la simulation (s)
 xL = 0.e0    		% Limite gauche du fond marin (m) const: 0.
 xR = 10.e0   		% Limite droite du fond marin (m) const: 15.
 yL = 0.e0   		% Limite inférieure du fond marin (m) const: 0.
@@ -27,16 +27,16 @@ type_u2 = const		 	 % Type de simulation: "const", "onde_cas1" et "onde_cas2"
 mode_num_x = 2			 % Valeur propre en x
 mode_num_y = 2			 % Valeur propre en y
 
-bc_left = harmonic		 % Condition au bord gauche: dirichlet, neumann, harmonic
+bc_left = dirichlet		 % Condition au bord gauche: dirichlet, neumann, harmonic
 bc_right  = dirichlet		 % Condition au bord droite: dirichlet, neumann, harmonic
-bc_lower  = neumann		 % Condition au bord inférieur: dirichlet, neumann, harmonic
-bc_upper  = neumann		 % Condition au bord supérieur: dirichlet, neumann, harmonic
+bc_lower  = dirichlet		 % Condition au bord inférieur: dirichlet, neumann, harmonic
+bc_upper  = dirichlet		 % Condition au bord supérieur: dirichlet, neumann, harmonic
 impulsion = true		 % Si vrai, et si harmonique, une seule onde est émise
 A = 1.e0			 % Amplitude condition bord harmonique
 omega = 5.e0			 % Fréquence condition bord harmonique (rad/s)
 neumann_apres_impulsion	= false  % Si vrai, le bord respecte la condition de neumann après l'impulsion, de dirichlet sinon
 
-type_init = homogene		 % Type initialisation: harmonic, default: homogene
+type_init = harmonic		 % Type initialisation: harmonic, default: homogene
 F0 = 1.e0			 % Amplitude de l'harmonique initiale
 
 write_mesh = true		 % Si vrai, le maillage est écrit dans output_mesh.out
