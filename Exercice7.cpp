@@ -523,7 +523,7 @@ int main(int argc, char* argv[]){
           break;
         }
         for (unsigned int y(start_yiD+1); y < end_yiD; ++y){
-          fnext[start_xiD][y] = perturbation(t, xL, y*dy, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, false);
+          fnext[start_xiD][y] = perturbation(t, xL, y_mesh[y], xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, false);
         }
         break;
       default:
@@ -555,7 +555,7 @@ int main(int argc, char* argv[]){
           break;
         }
         for (unsigned int y(start_yiD+1); y < end_yiD; ++y){
-          fnext[end_xiD][y] = perturbation(t, xR, y*dy, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, false);
+          fnext[end_xiD][y] = perturbation(t, xR, y_mesh[y], xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, false);
         }
         break;
       default:
@@ -587,7 +587,7 @@ int main(int argc, char* argv[]){
           break;
         }
         for (unsigned int x(start_xiD); x <= end_xiD; ++x){
-          fnext[x][start_yiD] = perturbation(t, x*dx, yL, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, false);
+          fnext[x][start_yiD] = perturbation(t, x_mesh[x], yL, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, false);
         }
         break;
       default:
@@ -619,7 +619,7 @@ int main(int argc, char* argv[]){
           break;
         }
         for (unsigned int x(start_xiD); x <= end_xiD; ++x){
-          fnext[x][end_yiD] = perturbation(t, x*dx, yU, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, false);
+          fnext[x][end_yiD] = perturbation(t, x_mesh[x], yU, xL, xR, yL, yU, omega, A, mode_num_x, mode_num_y, false);
         }
         break;
       default:

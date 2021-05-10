@@ -1,7 +1,7 @@
 %% Parametres %% (A MODIFIER SELON VOS BESOINS)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 lw = 2; fs = 16; Nx = 64;
-nom = 'yolo.gif';
+nom = '2a)_fixe_fixed.gif';
 
 repertoire = ''; % Chemin d'acces au code compile
 executable = 'Exercice7'; % Nom de l'executable
@@ -34,7 +34,7 @@ for i = 1:size(t)
     surf(x,y,f);
     xlim([0 10])
     ylim([0 6])
-    zlim([-200 200])
+    zlim([-3 3])
     xlabel('X', 'fontsize', fs)
     ylabel('Y', 'fontsize', fs)
     zlabel('Z', 'fontsize', fs)
