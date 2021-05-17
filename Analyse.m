@@ -38,8 +38,8 @@ for i = 1:size(t)
     xlabel('X', 'fontsize', fs)
     ylabel('Y', 'fontsize', fs)
     zlabel('Z', 'fontsize', fs)
-
-     drawnow
+    
+    drawnow
 %      pause(10);
 
   frame = getframe(h); 

@@ -487,8 +487,8 @@ int main(int argc, char* argv[]){
         fnext[i][j] = pow(dt,2)*((((*u2)(x_mesh[i+1],y_mesh[j]) - (*u2)(x_mesh[i-1],y_mesh[j]))*(fnow[i+1][j] - fnow[i-1][j])/(4*pow(dx, 2))) \
                     + (((*u2)(x_mesh[i],y_mesh[j+1]) - (*u2)(x_mesh[i],y_mesh[j-1]))*(fnow[i][j+1] - fnow[i][j-1])/(4*pow(dy, 2))) \
                     + (*u2)(x_mesh[i],y_mesh[j])*((fnow[i+1][j] - 2*fnow[i][j] + fnow[i-1][j])/pow(dx, 2))\
-                    + (*u2)(x_mesh[i],y_mesh[j])*((fnow[i][j+1] - 2*fnow[i][j] + fnow[i][j-1])/pow(dy, 2)))\
-                    + perturbation(t, x_mesh[i], y_mesh[j], u2->get_left_extremum(), u2->get_right_extremum(), u2->get_lower_extremum(), u2->get_upper_extremum(), pert_velocity, pert_amplitude, mode_num_x, mode_num_y, true) \
+                    + (*u2)(x_mesh[i],y_mesh[j])*((fnow[i][j+1] - 2*fnow[i][j] + fnow[i][j-1])/pow(dy, 2))\
+                    + perturbation(t, x_mesh[i], y_mesh[j], u2->get_left_extremum(), u2->get_right_extremum(), u2->get_lower_extremum(), u2->get_upper_extremum(), pert_velocity, pert_amplitude, mode_num_x, mode_num_y, true)) \
                     + 2*fnow[i][j] - fpast[i][j]; // À modifier!
       } 
     }
